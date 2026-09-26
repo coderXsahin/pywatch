@@ -158,10 +158,10 @@ def monitor_summary():
 
 @app.put("/incidents/{incident_id}/close")
 def close_incident(incident_id: int):
-    from app.incident_repository import IncidentRepository
+    from app.incident_service import IncidentService
 
-    repository = IncidentRepository()
-    incident = repository.close_incident(incident_id)
+    service = IncidentService()
+    incident = service.close_incident(incident_id)
 
     if incident is None:
         return {

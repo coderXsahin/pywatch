@@ -19,7 +19,7 @@ class IncidentService:
 
     def get_saved_incidents(self):
         return self.repository.get_all_incidents()
-    
+
     def get_open_incidents(self):
         return self.repository.get_open_incidents()
 
@@ -28,3 +28,6 @@ class IncidentService:
 
     def get_high_incidents(self):
         return self.repository.get_high_incidents()
+
+    def close_incident(self, incident_id):
+        return self.repository.close_incident(incident_id)
