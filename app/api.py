@@ -1,4 +1,21 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+from datetime import datetime
+class IncidentResponse(BaseModel):
+    id: int
+    message: str
+    count: int
+    severity: str
+    status: str
+    root_cause: str
+    recommendation: str
+    created_at: datetime
+    closed_at: datetime | None = None
+
+
+class IncidentListResponse(BaseModel):
+    total_incidents: int
+    incidents: list[IncidentResponse]
 app = FastAPI(
     title="PyWatch API",
     description="Application monitoring and incident analysis API",
@@ -15,7 +32,7 @@ def health_check():
     return {
         "status": "healthy"
     }
-@app.get("/incidents")
+@app.get("/incidents", response_model=IncidentListResponse)
 def get_incidents():
     from app.incident_service import IncidentService
 
