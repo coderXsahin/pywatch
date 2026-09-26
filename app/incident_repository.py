@@ -86,3 +86,24 @@ class IncidentRepository:
 
         finally:
             session.close()
+
+    def close_incident(self, incident_id):
+        session = SessionLocal()
+
+        try:
+            incident = session.query(IncidentModel).filter_by(
+                id=incident_id
+            ).first()
+
+            if incident is None:
+                return None
+
+            incident.status = "CLOSED"
+
+            session.commit()
+            session.refresh(incident)
+
+            return incident
+
+        finally:
+            session.close()

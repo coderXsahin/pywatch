@@ -153,3 +153,27 @@ def monitor_summary():
         "critical_incidents": critical_count,
         "high_incidents": high_count
     }
+
+@app.put("/incidents/{incident_id}/close")
+def close_incident(incident_id: int):
+    from app.incident_repository import IncidentRepository
+
+    repository = IncidentRepository()
+    incident = repository.close_incident(incident_id)
+
+    if incident is None:
+        return {
+            "status": "error",
+            "message": "Incident not found"
+        }
+
+    return {
+        "status": "success",
+        "message": "Incident closed successfully",
+        "incident": {
+            "id": incident.id,
+            "message": incident.message,
+            "severity": incident.severity,
+            "status": incident.status
+        }
+    }
