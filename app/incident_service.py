@@ -8,12 +8,13 @@ class IncidentService:
     def __init__(self):
         self.repository = IncidentRepository()
 
-    def analyze_log_file(self, file_path, threshold=3):
+    def analyze_log_file(self, file_path, threshold=3, save=True):
         logs = parse_log_file(file_path)
         manager = create_incident_manager(logs, threshold)
 
-        for incident in manager.get_open_incidents():
-            self.repository.save_incident(incident)
+        if save:
+            for incident in manager.get_open_incidents():
+                self.repository.save_incident(incident)
 
         return manager
 
