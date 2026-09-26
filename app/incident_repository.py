@@ -1,3 +1,5 @@
+from datetime import datetime
+from app import incident
 from app.database import SessionLocal
 from app.models import IncidentModel
 
@@ -19,12 +21,14 @@ class IncidentRepository:
                 return existing
 
             db_incident = IncidentModel(
-                message=incident.message,
-                count=incident.count,
-                severity=incident.severity,
-                status=incident.status,
-                root_cause=incident.root_cause,
-                recommendation=incident.recommendation
+            message=incident.message,
+            count=incident.count,
+            severity=incident.severity,
+            status=incident.status,
+            root_cause=incident.root_cause,
+            recommendation=incident.recommendation,
+            created_at=datetime.now(),
+            closed_at=None
             )
 
             session.add(db_incident)
@@ -99,6 +103,7 @@ class IncidentRepository:
                 return None
 
             incident.status = "CLOSED"
+            incident.closed_at = datetime.now()
 
             session.commit()
             session.refresh(incident)

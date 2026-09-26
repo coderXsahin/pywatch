@@ -32,7 +32,9 @@ def get_incidents():
                 "severity": incident.severity,
                 "status": incident.status,
                 "root_cause": incident.root_cause,
-                "recommendation": incident.recommendation
+                "recommendation": incident.recommendation,
+                "created_at": incident.created_at,
+                "closed_at": incident.closed_at
             }
             for incident in incidents
         ]
