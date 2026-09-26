@@ -1,0 +1,10 @@
+[
+    {
+        "message": "Payment service unavailable",
+        "count": 4,
+        "severity": "HIGH",
+        "status": "OPEN",
+        "root_cause": "Payment service may be down or experiencing connectivity issues",
+        "recommendation": "Check payment service health, API connectivity, service logs, and recent deployments."
+    }
+]
