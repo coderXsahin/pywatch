@@ -3,7 +3,7 @@ import urllib.request
 from types import SimpleNamespace
 import streamlit as st
 from app.ai_analyzer import analyze_incident
-API_URL = "http://127.0.0.1:8000"
+API_URL = "http://127.0.0.1:8001"
 def get_statistics():
     url = f"{API_URL}/statistics"
     with urllib.request.urlopen(url) as response:
