@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: pywatch-postgres
+    environment:
+      POSTGRES_DB: pywatch
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5433:5432"
+    volumes:
+      - pywatch-postgres-data:/var/lib/postgresql
+
+  api:
+    build: .
+    container_name: pywatch-api
+    ports:
+      - "8001:8000"
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    depends_on:
+      - postgres
+
+volumes:
+  pywatch-postgres-data:

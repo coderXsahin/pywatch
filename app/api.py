@@ -1,6 +1,11 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from datetime import datetime
+
+from app.database import Base, engine
+from app.models import IncidentModel
+
+
 class IncidentResponse(BaseModel):
     id: int
     message: str
@@ -16,11 +21,15 @@ class IncidentResponse(BaseModel):
 class IncidentListResponse(BaseModel):
     total_incidents: int
     incidents: list[IncidentResponse]
+
+
 app = FastAPI(
     title="PyWatch API",
     description="Application monitoring and incident analysis API",
     version="1.0.0"
 )
+
+Base.metadata.create_all(bind=engine)
 @app.get("/")
 def home():
     return {
